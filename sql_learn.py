@@ -51,27 +51,25 @@ def add_base_users():
 
 def add_custom_user():
     global Session
-    id = input("Id for user")
-    f_name = input("First name?")
-    l_name = input("Last name?")
-    p_number = NULLTYPE
+    with Session(engine) as Session:
+        id = input("Id for user")
+        f_name = input("First name?")
+        l_name = input("Last name?")
+        p_number = NULLTYPE
 
-    user_answer = input("Want to add number? [y/n]")
-    if user_answer.lower() == "y":
-        p_number = input("What is the phone number?")
+        user_answer = input("Want to add number? [y/n]")
+        if user_answer.lower() == "y":
+            p_number = input("What is the phone number?")
 
-    new_student = User(
-        student_id = id,
-        first_name = f_name,
-        last_name = l_name,
-        phone_number = p_number
-    )
+        new_student = User(
+            student_id = id,
+            first_name = f_name,
+            last_name = l_name,
+            phone_number = p_number
+        )
 
-    Session.add_all([new_student])
-    Session.add_all()
-    Session.commit()
-
+        Session.add_all([new_student])
+        Session.commit()
 
 if __name__ == '__main__':
-    add_base_users()
     add_custom_user()
